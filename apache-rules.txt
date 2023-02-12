@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} ^[A-Z]{3,9}\ /.*index\.php
+    RewriteRule ^index.php/?(.*)$ $1 [R=301,L]
+
+    # Run everything else but real files through index.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php/$1?%{QUERY_STRING} [L]
+</IfModule>
+
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/?index.php$
+RewriteRule . index.php

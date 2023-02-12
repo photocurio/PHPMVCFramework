@@ -1,0 +1,15 @@
+{
+	"name": "petermumford/phpmvc-framework",
+	"autoload": {
+		"psr-4": {
+			"app\\": "./"
+		}
+	},
+	"authors": [
+		{
+			"name": "Peter Mumford",
+			"email": "sunraydust@gmail.com"
+		}
+	],
+	"require": {}
+}
