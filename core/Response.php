@@ -3,7 +3,7 @@
 namespace app\core;
 
 /**
- * class Request
+ * class Response
  *
  * @package app\core
  */
