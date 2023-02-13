@@ -23,7 +23,6 @@ class Application
     }
     public function run()
     {
-        // return 'found me in App';
         echo $this->router->resolve();
     }
 }

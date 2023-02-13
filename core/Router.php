@@ -39,7 +39,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
         if ($callback === false) {
             $this->response->setStatusCode(404);
@@ -62,9 +62,9 @@ class Router
 
     protected function layoutContent()
     {
-        \ob_start();
+        ob_start();
         include_once Application::$ROOT_DIR . "/views/layouts/main.php";
-        return \ob_get_clean();
+        return ob_get_clean();
     }
 
     /**

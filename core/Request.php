@@ -21,7 +21,7 @@ class Request
         return \substr($path, 0, $position);
     }
 
-    public function getMethod()
+    public function method()
     {
         return \strtolower($_SERVER['REQUEST_METHOD']);
     }
@@ -29,15 +29,13 @@ class Request
     public function getBody()
     {
         $body = [];
-        if ($this->getMethod() === 'get') {
+        if ($this->method() === 'get') {
             foreach ($_GET as $key => $value) {
-                $body[$key] = filter_input(INPUT_GET, $value, FILTER_SANITIZE_SPECIAL_CHARS);
+                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
-        }
-
-        if ($this->getMethod() === 'post') {
+        } elseif ($this->method() === 'post') {
             foreach ($_POST as $key => $value) {
-                $body[$key] = filter_input(INPUT_POST, $value, FILTER_SANITIZE_SPECIAL_CHARS);
+                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
         return $body;
