@@ -3,18 +3,18 @@
 	<div class="col-md-4">
 		<form action="" method="post">
 			<div class="mb-3">
-				<label for="formSubject" class="form-label">Subject</label>
-				<input type="text" class="form-control" id="formSubject">
+				<label class="form-label">Subject</label>
+				<input name="subject" type="text" class="form-control">
 			</div>
 
 			<div class="mb-3">
-				<label for="formEmail" class="form-label">Email address</label>
-				<input type="email" class="form-control" id="formEmail" aria-describedby="emailHelp">
+				<label class="form-label">Email address</label>
+				<input name="email" type="email" class="form-control">
 			</div>
 
 			<div class="mb-3">
-				<label class="form-label" for="formBody">Body</label>
-				<textarea type="textarea" class="form-control" id="formBody"></textarea>
+				<label class="form-label">Body</label>
+				<textarea name="body" type="textarea" class="form-control"></textarea>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
