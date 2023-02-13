@@ -7,7 +7,7 @@ use app\core\Request;
 
 class SiteController extends Controller
 {
-    public function home()
+    public function home(): string|false
     {
         $params = [
             'name' => 'Peter Mumford'
@@ -15,12 +15,12 @@ class SiteController extends Controller
         return $this->render('home', $params);
     }
 
-    public function contact()
+    public function contact(): string|false
     {
         return $this->render('contact');
     }
 
-    public function handleContact(Request $request)
+    public function handleContact(Request $request): array
     {
         $body = $request->getBody();
         echo '<pre>';

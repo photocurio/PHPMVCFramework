@@ -9,7 +9,7 @@ namespace app\core;
  */
 class Request
 {
-    public function getPath()
+    public function getPath(): string
     {
         $path = $_SERVER['REQUEST_URI'] ?? '/';
 
@@ -18,15 +18,25 @@ class Request
         if ($position === false) {
             return $path;
         }
-        return \substr($path, 0, $position);
+        return substr($path, 0, $position);
     }
 
-    public function method()
+    public function method(): string
     {
-        return \strtolower($_SERVER['REQUEST_METHOD']);
+        return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
-    public function getBody()
+    public function isGet(): bool
+    {
+        return $this->method() === 'get';
+    }
+
+    public function isPost(): bool
+    {
+        return $this->method() === 'post';
+    }
+
+    public function getBody(): array
     {
         $body = [];
         if ($this->method() === 'get') {

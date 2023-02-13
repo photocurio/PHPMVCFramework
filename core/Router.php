@@ -12,31 +12,23 @@ class Router
     public Response $response;
     protected array $routes = [];
 
-    /**
-     * @param Request $request
-     * @return void
-     */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
-    /**
-     * @param string $path
-     * @param mixed $callback
-     * @return void
-     */
-    public function get(string $path, mixed $callback)
+    public function get(string $path, mixed $callback): void
     {
         $this->routes['get'][$path] = $callback;
     }
 
-    public function post(string $path, mixed $callback)
+    public function post(string $path, mixed $callback): void
     {
         $this->routes['post'][$path] = $callback;
     }
-    public function resolve()
+
+    public function resolve(): string|array|false
     {
         $path = $this->request->getPath();
         $method = $this->request->method();
@@ -47,31 +39,29 @@ class Router
         } elseif (is_string($callback)) {
             return $this->renderView($callback);
         } elseif (is_array($callback)) {
-            $callback[0] = new $callback[0]();
+            Application::$app->controller = new $callback[0]();
+            $callback[0] = Application::$app->controller;
         }
 
         return call_user_func($callback, $this->request);
     }
 
-    public function renderView(string $view, array $params = [])
+    public function renderView(string $view, array $params = []): string|false
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    protected function layoutContent()
+    protected function layoutContent(): string|false
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/layouts/main.php";
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();
     }
 
-    /**
-     * @param string $view
-     * @return string|false
-     */
-    protected function renderOnlyView(string $view, array $params)
+    protected function renderOnlyView(string $view, array $params): string|false
     {
         foreach ($params as $key => $value) {
             $$key = $value;
